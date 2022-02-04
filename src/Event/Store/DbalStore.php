@@ -12,8 +12,8 @@ use LessDomain\Event\Publisher\Publisher;
 final class DbalStore implements Store
 {
     public function __construct(
-        private Connection $connection,
-        private Publisher $publisher,
+        private readonly Connection $connection,
+        private readonly Publisher $publisher,
     ) {}
 
     /**

@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace LessDomain\Event\Property;
 
 use LessValueObject\Composite\AbstractCompositeValueObject;
-use LessValueObject\Composite\Reference;
+use LessValueObject\Composite\ForeignReference;
 use LessValueObject\String\Format\Ip;
 use LessValueObject\String\UserAgent;
 use Psr\Http\Message\ServerRequestInterface;
@@ -15,9 +15,9 @@ use Psr\Http\Message\ServerRequestInterface;
 final class Headers extends AbstractCompositeValueObject
 {
     public function __construct(
-        public ?UserAgent $userAgent = null,
-        public ?Reference $identity = null,
-        public ?Ip $ip = null,
+        public readonly ?UserAgent $userAgent = null,
+        public readonly ?ForeignReference $identity = null,
+        public readonly ?Ip $ip = null,
     ) {}
 
     /**
@@ -29,7 +29,7 @@ final class Headers extends AbstractCompositeValueObject
     {
         return new self(
             UserAgent::fromRequest($request),
-            Reference::fromRequest($request),
+            ForeignReference::fromRequest($request),
             Ip::fromRequest($request),
         );
     }

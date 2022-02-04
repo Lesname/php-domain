@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace LessDomainTest\Id;
 
 use LessDomain\Id\RamseyIdService;
-use LessValueObject\String\Format\Reference\Id;
+use LessValueObject\String\Format\Resource\Id;
 use PHPUnit\Framework\TestCase;
 
 /**

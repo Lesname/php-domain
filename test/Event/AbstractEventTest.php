@@ -3,13 +3,12 @@ declare(strict_types=1);
 
 namespace LessDomainTest\Event;
 
-use LessDomain\Event\AbstractAggregateEvent;
 use LessDomain\Event\AbstractEvent;
 use LessDomain\Event\Property\Action;
 use LessDomain\Event\Property\Headers;
 use LessDomain\Event\Property\Target;
 use LessValueObject\Number\Int\Date\MilliTimestamp;
-use LessValueObject\String\Format\Reference\Id;
+use LessValueObject\String\Format\Resource\Id;
 use PHPUnit\Framework\TestCase;
 
 /**

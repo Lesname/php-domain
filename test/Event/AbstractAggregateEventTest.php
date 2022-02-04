@@ -6,7 +6,7 @@ namespace LessDomainTest\Event;
 use LessDomain\Event\AbstractAggregateEvent;
 use LessDomain\Event\Property\Headers;
 use LessValueObject\Number\Int\Date\MilliTimestamp;
-use LessValueObject\String\Format\Reference\Id;
+use LessValueObject\String\Format\Resource\Id;
 use PHPUnit\Framework\TestCase;
 
 /**

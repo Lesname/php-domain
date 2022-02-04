@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace LessDomain\Id;
 
-use LessValueObject\String\Format\Reference\Id;
+use LessValueObject\String\Format\Resource\Id;
 
 interface IdService
 {

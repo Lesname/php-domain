@@ -10,8 +10,10 @@ use LessValueObject\Number\Int\Date\MilliTimestamp;
  */
 abstract class AbstractEvent implements Event
 {
-    public function __construct(private MilliTimestamp $occurredOn, private Property\Headers $headers)
-    {}
+    public function __construct(
+        private readonly MilliTimestamp $occurredOn,
+        private readonly Property\Headers $headers,
+    ) {}
 
     public function getOccuredOn(): MilliTimestamp
     {
