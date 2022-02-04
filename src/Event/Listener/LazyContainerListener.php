@@ -12,8 +12,10 @@ final class LazyContainerListener implements Listener
 {
     private ?Listener $proxiedListener = null;
 
-    public function __construct(private ContainerInterface $container, private string $name)
-    {}
+    public function __construct(
+        private readonly ContainerInterface $container,
+        private readonly string $name,
+    ) {}
 
     /**
      * @throws ContainerExceptionInterface
