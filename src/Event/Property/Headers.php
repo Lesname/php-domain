@@ -4,7 +4,11 @@ declare(strict_types=1);
 namespace LessDomain\Event\Property;
 
 use LessValueObject\Composite\AbstractCompositeValueObject;
+use LessValueObject\Composite\Exception\CannotParseReference;
 use LessValueObject\Composite\ForeignReference;
+use LessValueObject\String\Exception\TooLong;
+use LessValueObject\String\Exception\TooShort;
+use LessValueObject\String\Format\Exception\NotFormat;
 use LessValueObject\String\Format\Ip;
 use LessValueObject\String\UserAgent;
 use Psr\Http\Message\ServerRequestInterface;
@@ -23,15 +27,73 @@ final class Headers extends AbstractCompositeValueObject
     /**
      * @psalm-pure
      *
-     * @psalm-suppress ImpureMethodCall using getters
+     * @throws CannotParseReference
+     * @throws NotFormat
+     * @throws TooLong
+     * @throws TooShort
      */
     public static function fromRequest(ServerRequestInterface $request): self
     {
         return new self(
-            UserAgent::fromRequest($request),
-            ForeignReference::fromRequest($request),
-            Ip::fromRequest($request),
+            self::fromRequestUserAgent($request),
+            self::fromRequestIdentity($request),
+            self::fromRequestIP($request),
         );
+    }
+
+    /**
+     * @psalm-pure
+     *
+     * @psalm-suppress ImpureMethodCall getter is pure
+     *
+     * @throws TooLong
+     * @throws TooShort
+     */
+    private static function fromRequestUserAgent(ServerRequestInterface $request): ?UserAgent
+    {
+        $userAgent = $request->getHeaderLine('user-agent') ?: null;
+
+        return is_string($userAgent) && mb_strlen($userAgent) >= UserAgent::getMinLength()
+            ? new UserAgent(mb_substr($userAgent, 0, UserAgent::getMaxLength()))
+            : null;
+    }
+
+    /**
+     * @psalm-pure
+     *
+     * @psalm-suppress ImpureMethodCall getter is pure
+     *
+     * @throws CannotParseReference
+     * @throws TooLong
+     * @throws TooShort
+     * @throws NotFormat
+     */
+    private static function fromRequestIdentity(ServerRequestInterface $request): ?ForeignReference
+    {
+        $identity = $request->getAttribute('identity');
+        assert(is_string($identity) || is_null($identity), 'Identity must be string or null');
+
+        return is_string($identity)
+            ? ForeignReference::fromString($identity)
+            : null;
+    }
+
+    /**
+     * @psalm-pure
+     *
+     * @psalm-suppress ImpureMethodCall getter is pure
+     *
+     * @throws TooLong
+     * @throws TooShort
+     * @throws NotFormat
+     */
+    private static function fromRequestIP(ServerRequestInterface $request): ?Ip
+    {
+        $params = $request->getServerParams();
+
+        return isset($params['REMOTE_ADDR']) && is_string($params['REMOTE_ADDR'])
+            ? new Ip($params['REMOTE_ADDR'])
+            : null;
     }
 
     /**
