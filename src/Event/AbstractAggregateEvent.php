@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace LessDomain\Event;
 
 use LessValueObject\Number\Int\Date\MilliTimestamp;
-use LessValueObject\String\Format\Resource\Id;
+use LessValueObject\String\Format\Resource\Identifier;
 
 /**
  * @psalm-immutable
@@ -12,7 +12,7 @@ use LessValueObject\String\Format\Resource\Id;
 abstract class AbstractAggregateEvent extends AbstractEvent
 {
     public function __construct(
-        public readonly Id $id,
+        public readonly Identifier $id,
         MilliTimestamp $occurredOn,
         Property\Headers $headers,
     ) {
