@@ -8,7 +8,7 @@ use LessDomain\Event\Property\Action;
 use LessDomain\Event\Property\Headers;
 use LessDomain\Event\Property\Target;
 use LessValueObject\Number\Int\Date\MilliTimestamp;
-use LessValueObject\String\Format\Resource\Id;
+use LessValueObject\String\Format\Resource\Identifier;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -18,7 +18,7 @@ final class AbstractEventTest extends TestCase
 {
     public function testGetters(): void
     {
-        $id = new Id('33793b65-ce94-4c9f-80f5-bd26ecc78d25');
+        $id = new Identifier('33793b65-ce94-4c9f-80f5-bd26ecc78d25');
         $on = MilliTimestamp::now();
         $headers = new Headers();
 
@@ -33,12 +33,12 @@ final class AbstractEventTest extends TestCase
 
     public function testParameters(): void
     {
-        $id = new Id('33793b65-ce94-4c9f-80f5-bd26ecc78d25');
+        $id = new Identifier('33793b65-ce94-4c9f-80f5-bd26ecc78d25');
         $on = MilliTimestamp::now();
         $headers = new Headers();
 
         $e = new class ($id, $on, $headers) extends AbstractEvent {
-            public function __construct(public Id $id, MilliTimestamp $occurredOn, Headers $headers)
+            public function __construct(public Identifier $id, MilliTimestamp $occurredOn, Headers $headers)
             {
                 parent::__construct($occurredOn, $headers);
             }
@@ -62,12 +62,12 @@ final class AbstractEventTest extends TestCase
 
     public function testJson(): void
     {
-        $id = new Id('33793b65-ce94-4c9f-80f5-bd26ecc78d25');
+        $id = new Identifier('33793b65-ce94-4c9f-80f5-bd26ecc78d25');
         $on = MilliTimestamp::now();
         $headers = new Headers();
 
         $e = new class ($id, $on, $headers) extends AbstractEvent {
-            public function __construct(public Id $id, MilliTimestamp $occurredOn, Headers $headers)
+            public function __construct(public Identifier $id, MilliTimestamp $occurredOn, Headers $headers)
             {
                 parent::__construct($occurredOn, $headers);
             }
