@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace LessDomainTest\Event\Publisher;
 
 use ArrayIterator;
+use LessDomain\Event\AbstractEvent;
 use LessDomain\Event\Event;
 use LessDomain\Event\Listener\Listener;
 use LessDomain\Event\Publisher\FifoPublisher;
@@ -45,5 +46,16 @@ final class FifoPublisherTest extends TestCase
         );
 
         $publisher->publish($event);
+    }
+
+    public function testGetSubscriptions(): void
+    {
+        $listener = $this->createMock(Listener::class);
+
+        $subs = [AbstractEvent::class => [$listener]];
+
+        $publisher = new FifoPublisher($subs);
+
+        self::assertSame($subs, $publisher->getSubscriptions());
     }
 }
