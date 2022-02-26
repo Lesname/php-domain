@@ -3,7 +3,9 @@ declare(strict_types=1);
 
 namespace LessDomainTest\Event\Publisher;
 
+use LessDomain\Event\AbstractAggregateEvent;
 use LessDomain\Event\AbstractEvent;
+use LessDomain\Event\Listener\LazyContainerListener;
 use LessDomain\Event\Publisher\FifoPublisher;
 use LessDomain\Event\Publisher\FifoPublisherFactory;
 use PHPUnit\Framework\TestCase;
@@ -18,8 +20,9 @@ final class FifoPublisherFactoryTest extends TestCase
     {
         $config = [
             FifoPublisherFactory::CONFIG_KEY => [
-                AbstractEvent::class => [
-                    'fiz',
+                LazyContainerListener::class => [
+                    AbstractEvent::class,
+                    AbstractAggregateEvent::class,
                 ],
             ],
         ];
@@ -33,6 +36,19 @@ final class FifoPublisherFactoryTest extends TestCase
 
         $factory = new FifoPublisherFactory();
 
-        self::assertInstanceOf(FifoPublisher::class, $factory($container));
+        $publisher = $factory($container);
+        self::assertInstanceOf(FifoPublisher::class, $publisher);
+
+        self::assertEquals(
+            [
+                AbstractEvent::class => [
+                    new LazyContainerListener($container, LazyContainerListener::class),
+                ],
+                AbstractAggregateEvent::class => [
+                    new LazyContainerListener($container, LazyContainerListener::class),
+                ],
+            ],
+            $publisher->getSubscriptions(),
+        );
     }
 }

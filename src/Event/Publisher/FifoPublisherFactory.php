@@ -5,6 +5,7 @@ namespace LessDomain\Event\Publisher;
 
 use LessDomain\Event\Event;
 use LessDomain\Event\Listener\LazyContainerListener;
+use LessDomain\Event\Listener\Listener;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;
@@ -22,24 +23,24 @@ final class FifoPublisherFactory
     public function __invoke(ContainerInterface $container): FifoPublisher
     {
         $config = $container->get('config');
-        assert(is_array($config), 'Expected array');
-        assert(is_array($config[self::CONFIG_KEY]), 'Expected array');
+        assert(is_array($config));
+        assert(is_array($config[self::CONFIG_KEY]));
 
-        return new FifoPublisher(
-            (function (array $subscriptions) use ($container): iterable {
-                foreach ($subscriptions as $event => $listeners) {
-                    assert(is_string($event) && is_subclass_of($event, Event::class), 'Expected event class string');
-                    assert(is_iterable($listeners), 'Expected listeners');
+        $subscriptions = [];
 
-                    yield $event => (function (iterable $listeners) use ($container): iterable {
-                        foreach ($listeners as $listener) {
-                            assert(is_string($listener), 'Expected a string');
+        foreach ($config[self::CONFIG_KEY] as $listener => $events) {
+            assert(is_string($listener) && is_subclass_of($listener, Listener::class));
+            assert(is_iterable($events));
 
-                            yield new LazyContainerListener($container, $listener);
-                        }
-                    })($listeners);
-                }
-            })($config[self::CONFIG_KEY]),
-        );
+            $lazyListener = new LazyContainerListener($container, $listener);
+
+            foreach ($events as $event) {
+                assert(is_string($event) && is_subclass_of($event, Event::class));
+
+                $subscriptions[$event][] = $lazyListener;
+            }
+        }
+
+        return new FifoPublisher($subscriptions);
     }
 }
