@@ -13,7 +13,7 @@ trait EventActionHelper
     /**
      * @psalm-pure
      */
-    public static function getAction(): Action
+    public function getAction(): Action
     {
         $classNameParts = explode('\\', static::class);
         $className = array_pop($classNameParts);
