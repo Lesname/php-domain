@@ -3,6 +3,9 @@ declare(strict_types=1);
 
 namespace LessDomain\Event;
 
+use LessDomain\Event\Property\Action;
+use LessDomain\Event\Property\Headers;
+use LessDomain\Event\Property\Target;
 use LessValueObject\Composite\CompositeValueObject;
 use LessValueObject\Number\Int\Date\MilliTimestamp;
 
@@ -11,9 +14,9 @@ use LessValueObject\Number\Int\Date\MilliTimestamp;
  */
 interface Event extends CompositeValueObject
 {
-    public function getTarget(): Property\Target;
+    public function getTarget(): Target;
 
-    public function getAction(): Property\Action;
+    public function getAction(): Action;
 
     /**
      * @return array<string, mixed>
@@ -22,5 +25,5 @@ interface Event extends CompositeValueObject
 
     public function getOccuredOn(): MilliTimestamp;
 
-    public function getHeaders(): Property\Headers;
+    public function getHeaders(): Headers;
 }

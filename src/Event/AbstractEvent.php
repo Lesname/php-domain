@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace LessDomain\Event;
 
+use LessDomain\Event\Property\Headers;
 use LessValueObject\Number\Int\Date\MilliTimestamp;
 
 /**
@@ -12,7 +13,7 @@ abstract class AbstractEvent implements Event
 {
     public function __construct(
         private readonly MilliTimestamp $occurredOn,
-        private readonly Property\Headers $headers,
+        private readonly Headers $headers,
     ) {}
 
     public function getOccuredOn(): MilliTimestamp
@@ -20,7 +21,7 @@ abstract class AbstractEvent implements Event
         return $this->occurredOn;
     }
 
-    public function getHeaders(): Property\Headers
+    public function getHeaders(): Headers
     {
         return $this->headers;
     }
