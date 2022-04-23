@@ -27,7 +27,6 @@ final class Headers extends AbstractCompositeValueObject
     /**
      * @psalm-pure
      *
-     * @throws CannotParseReference
      * @throws NotFormat
      * @throws TooLong
      * @throws TooShort
@@ -62,20 +61,13 @@ final class Headers extends AbstractCompositeValueObject
      * @psalm-pure
      *
      * @psalm-suppress ImpureMethodCall getter is pure
-     *
-     * @throws CannotParseReference
-     * @throws TooLong
-     * @throws TooShort
-     * @throws NotFormat
      */
     private static function fromRequestIdentity(ServerRequestInterface $request): ?ForeignReference
     {
         $identity = $request->getAttribute('identity');
-        assert(is_string($identity) || is_null($identity), 'Identity must be string or null');
+        assert($identity instanceof ForeignReference || is_null($identity));
 
-        return is_string($identity)
-            ? ForeignReference::fromString($identity)
-            : null;
+        return $identity;
     }
 
     /**
