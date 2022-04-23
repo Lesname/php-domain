@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace LessDomainTest\Event\Property;
 
 use LessDomain\Event\Property\Headers;
+use LessValueObject\Composite\ForeignReference;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -21,11 +22,12 @@ final class HeadersTest extends TestCase
             ->with('user-agent')
             ->willReturn('fiz');
 
+        $identity = ForeignReference::fromString('fiz/8400dc71-5f2f-4db1-8ec7-f51e8142593c');
         $request
             ->expects(self::once())
             ->method('getAttribute')
             ->with('identity')
-            ->willReturn('fiz/8400dc71-5f2f-4db1-8ec7-f51e8142593c');
+            ->willReturn($identity);
 
         $request
             ->expects(self::once())
@@ -35,7 +37,7 @@ final class HeadersTest extends TestCase
         $headers = Headers::fromRequest($request);
 
         self::assertSame('fiz', (string)$headers->userAgent);
-        self::assertSame('fiz/8400dc71-5f2f-4db1-8ec7-f51e8142593c', (string)$headers->identity);
+        self::assertSame($identity, $headers->identity);
         self::assertSame('1.2.3.4', (string)$headers->ip);
     }
 
