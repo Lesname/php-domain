@@ -11,6 +11,8 @@ use Ramsey\Uuid\Uuid;
 
 /**
  * @deprecated use GeneratorService
+ *
+ * @psalm-suppress DeprecatedInterface
  */
 final class Uuid6IdentifierService implements IdentifierService
 {
