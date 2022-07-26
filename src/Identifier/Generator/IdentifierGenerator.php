@@ -1,14 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace LessDomain\Identifier;
+namespace LessDomain\Identifier\Generator;
 
 use LessValueObject\String\Format\Resource\Identifier;
 
-/**
- * @deprecated use GeneratorService
- */
-interface IdentifierService
+interface IdentifierGenerator
 {
     public function generate(): Identifier;
 }
