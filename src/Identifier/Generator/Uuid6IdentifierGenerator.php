@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace LessDomain\Identifier;
+namespace LessDomain\Identifier\Generator;
 
 use LessValueObject\String\Exception\TooLong;
 use LessValueObject\String\Exception\TooShort;
@@ -9,10 +9,7 @@ use LessValueObject\String\Format\Exception\NotFormat;
 use LessValueObject\String\Format\Resource\Identifier;
 use Ramsey\Uuid\Uuid;
 
-/**
- * @deprecated use GeneratorService
- */
-final class Uuid6IdentifierService implements IdentifierService
+final class Uuid6IdentifierGenerator implements IdentifierGenerator
 {
     /**
      * @throws TooLong
