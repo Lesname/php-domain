@@ -3,25 +3,25 @@ declare(strict_types=1);
 
 namespace LessDomain\Event\Property;
 
-use LessValueObject\String\Format\AbstractRegexpFormattedStringValueObject;
+use LessValueObject\String\Format\AbstractRegexStringFormatValueObject;
 
 /**
  * @psalm-immutable
  */
-final class Action extends AbstractRegexpFormattedStringValueObject
+final class Action extends AbstractRegexStringFormatValueObject
 {
     /**
      * @psalm-pure
      */
-    public static function getRegexPattern(): string
+    public static function getRegularExpression(): string
     {
-        return '^[a-z][a-zA-Z]*$';
+        return '/^[a-z][a-zA-Z]*$/';
     }
 
     /**
      * @psalm-pure
      */
-    public static function getMinLength(): int
+    public static function getMinimumLength(): int
     {
         return 1;
     }
@@ -29,7 +29,7 @@ final class Action extends AbstractRegexpFormattedStringValueObject
     /**
      * @psalm-pure
      */
-    public static function getMaxLength(): int
+    public static function getMaximumLength(): int
     {
         return 25;
     }
