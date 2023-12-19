@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace LessDomain\Event\Property;
 
 use LessValueObject\Composite\AbstractCompositeValueObject;
-use LessValueObject\Composite\Exception\CannotParseReference;
 use LessValueObject\Composite\ForeignReference;
 use LessValueObject\String\Exception\TooLong;
 use LessValueObject\String\Exception\TooShort;
@@ -22,7 +21,13 @@ final class Headers extends AbstractCompositeValueObject
         public readonly ?UserAgent $userAgent = null,
         public readonly ?ForeignReference $identity = null,
         public readonly ?Ip $ip = null,
+        public readonly ?Ip $proxy = null,
     ) {}
+
+    public function getEffectiveIp(): ?Ip
+    {
+        return $this->proxy ?? $this->ip;
+    }
 
     /**
      * @psalm-pure
@@ -50,10 +55,10 @@ final class Headers extends AbstractCompositeValueObject
      */
     private static function fromRequestUserAgent(ServerRequestInterface $request): ?UserAgent
     {
-        $userAgent = $request->getHeaderLine('user-agent') ?: null;
+        $userAgent = trim($request->getHeaderLine('user-agent')) ?: null;
 
-        return is_string($userAgent) && mb_strlen($userAgent) >= UserAgent::getMinLength()
-            ? new UserAgent(mb_substr($userAgent, 0, UserAgent::getMaxLength()))
+        return $userAgent && mb_strlen($userAgent) >= UserAgent::getMinimumLength()
+            ? new UserAgent(mb_substr($userAgent, 0, UserAgent::getMaximumLength()))
             : null;
     }
 
@@ -117,6 +122,17 @@ final class Headers extends AbstractCompositeValueObject
     {
         return new self(
             userAgent: new UserAgent('cli'),
+            ip: Ip::local(),
+        );
+    }
+
+    /**
+     * @psalm-pure
+     */
+    public static function forEffect(): self
+    {
+        return new self(
+            userAgent: new UserAgent('effect'),
             ip: Ip::local(),
         );
     }
