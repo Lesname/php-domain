@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace LessDomain\Event\Property;
 
+use LessValueObject\String\Format\Uri\Https;
 use LessValueObject\Composite\AbstractCompositeValueObject;
 use LessValueObject\Composite\ForeignReference;
 use LessValueObject\String\Exception\TooLong;
@@ -21,9 +22,14 @@ final class Headers extends AbstractCompositeValueObject
         public readonly ?UserAgent $userAgent = null,
         public readonly ?ForeignReference $identity = null,
         public readonly ?Ip $ip = null,
+        /** @deprecated */
         public readonly ?Ip $proxy = null,
+        public readonly ?Https $origin = null,
     ) {}
 
+    /**
+     * @deprecated
+     */
     public function getEffectiveIp(): ?Ip
     {
         return $this->proxy ?? $this->ip;
@@ -42,6 +48,8 @@ final class Headers extends AbstractCompositeValueObject
             self::fromRequestUserAgent($request),
             self::fromRequestIdentity($request),
             self::fromRequestIP($request),
+            null,
+            self::fromRequestOrigin($request),
         );
     }
 
@@ -90,6 +98,24 @@ final class Headers extends AbstractCompositeValueObject
 
         return isset($params['REMOTE_ADDR']) && is_string($params['REMOTE_ADDR'])
             ? new Ip($params['REMOTE_ADDR'])
+            : null;
+    }
+
+    /**
+     * @psalm-pure
+     *
+     * @psalm-suppress ImpureMethodCall getter is pure
+     *
+     * @throws TooLong
+     * @throws TooShort
+     * @throws NotFormat
+     */
+    private static function fromRequestOrigin(ServerRequestInterface $request): ?Https
+    {
+        $origin = trim($request->getHeaderLine('origin')) ?: null;
+
+        return $origin && Https::isFormat($origin)
+            ? new Https($origin)
             : null;
     }
 
