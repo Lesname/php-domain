@@ -5,4 +5,4 @@ CREATE TABLE IF NOT EXISTS event_store (
     parameters JSON NOT NULL,
     occurred_on BIGINT(14) NOT NULL,
     headers json NOT NULL
-)
+);
