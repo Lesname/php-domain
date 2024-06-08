@@ -22,18 +22,8 @@ final class Headers extends AbstractCompositeValueObject
         public readonly ?UserAgent $userAgent = null,
         public readonly ?ForeignReference $identity = null,
         public readonly ?Ip $ip = null,
-        /** @deprecated */
-        public readonly ?Ip $proxy = null,
         public readonly ?Https $origin = null,
     ) {}
-
-    /**
-     * @deprecated
-     */
-    public function getEffectiveIp(): ?Ip
-    {
-        return $this->proxy ?? $this->ip;
-    }
 
     /**
      * @psalm-pure
@@ -48,7 +38,6 @@ final class Headers extends AbstractCompositeValueObject
             self::fromRequestUserAgent($request),
             self::fromRequestIdentity($request),
             self::fromRequestIP($request),
-            null,
             self::fromRequestOrigin($request),
         );
     }
