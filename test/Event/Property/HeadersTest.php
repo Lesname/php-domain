@@ -17,10 +17,14 @@ final class HeadersTest extends TestCase
     {
         $request = $this->createMock(ServerRequestInterface::class);
         $request
-            ->expects(self::once())
+            ->expects(self::exactly(2))
             ->method('getHeaderLine')
-            ->with('user-agent')
-            ->willReturn('fiz');
+            ->willReturnMap(
+                [
+                    ['user-agent', 'fiz'],
+                    ['origin', ''],
+                ],
+            );
 
         $identity = ForeignReference::fromString('fiz/8400dc71-5f2f-4db1-8ec7-f51e8142593c');
         $request

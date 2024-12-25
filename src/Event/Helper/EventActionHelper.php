@@ -7,6 +7,8 @@ use LessDomain\Event\Property\Action;
 
 /**
  * @psalm-immutable
+ *
+ * @phpstan-ignore trait.unused
  */
 trait EventActionHelper
 {

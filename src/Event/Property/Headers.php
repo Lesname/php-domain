@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace LessDomain\Event\Property;
 
+use RuntimeException;
 use LessValueObject\String\Format\Uri\Https;
 use LessValueObject\Composite\AbstractCompositeValueObject;
 use LessValueObject\Composite\ForeignReference;
@@ -12,12 +13,16 @@ use LessValueObject\String\Format\Exception\NotFormat;
 use LessValueObject\String\Format\Ip;
 use LessValueObject\String\UserAgent;
 use Psr\Http\Message\ServerRequestInterface;
+use LessValueObject\String\Format\Exception\UnknownVersion;
 
 /**
  * @psalm-immutable
  */
 final class Headers extends AbstractCompositeValueObject
 {
+    /**
+     * @psalm-pure
+     */
     public function __construct(
         public readonly ?UserAgent $userAgent = null,
         public readonly ?ForeignReference $identity = null,
@@ -52,6 +57,7 @@ final class Headers extends AbstractCompositeValueObject
      */
     private static function fromRequestUserAgent(ServerRequestInterface $request): ?UserAgent
     {
+        // @phpstan-ignore possiblyImpure.methodCall
         $userAgent = trim($request->getHeaderLine('user-agent')) ?: null;
 
         return $userAgent && mb_strlen($userAgent) >= UserAgent::getMinimumLength()
@@ -66,8 +72,12 @@ final class Headers extends AbstractCompositeValueObject
      */
     private static function fromRequestIdentity(ServerRequestInterface $request): ?ForeignReference
     {
+        // @phpstan-ignore possiblyImpure.methodCall
         $identity = $request->getAttribute('identity');
-        assert($identity instanceof ForeignReference || is_null($identity));
+
+        if (!$identity instanceof ForeignReference && $identity !== null) {
+            throw new RuntimeException();
+        }
 
         return $identity;
     }
@@ -83,6 +93,7 @@ final class Headers extends AbstractCompositeValueObject
      */
     private static function fromRequestIP(ServerRequestInterface $request): ?Ip
     {
+        // @phpstan-ignore possiblyImpure.methodCall
         $params = $request->getServerParams();
 
         return isset($params['REMOTE_ADDR']) && is_string($params['REMOTE_ADDR'])
@@ -101,6 +112,7 @@ final class Headers extends AbstractCompositeValueObject
      */
     private static function fromRequestOrigin(ServerRequestInterface $request): ?Https
     {
+        // @phpstan-ignore possiblyImpure.methodCall
         $origin = trim($request->getHeaderLine('origin')) ?: null;
 
         return $origin && Https::isFormat($origin)
@@ -121,6 +133,8 @@ final class Headers extends AbstractCompositeValueObject
 
     /**
      * @psalm-pure
+     *
+     * @throws UnknownVersion
      */
     public static function forCron(): self
     {
@@ -132,6 +146,8 @@ final class Headers extends AbstractCompositeValueObject
 
     /**
      * @psalm-pure
+     *
+     * @throws UnknownVersion
      */
     public static function forCli(): self
     {
@@ -143,6 +159,8 @@ final class Headers extends AbstractCompositeValueObject
 
     /**
      * @psalm-pure
+     *
+     * @throws UnknownVersion
      */
     public static function forEffect(): self
     {
