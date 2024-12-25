@@ -1,19 +1,12 @@
 {
   "name": "lessname/domain",
-  "description": "Event source setup",
-  "license": "proprietary",
-  "repositories": [
-    {
-      "url": "https://gitlab.com/api/v4/group/6632935/-/packages/composer/packages.json",
-      "type": "composer"
-    }
-  ],
+  "license": "MIT",
   "require": {
-    "php": "^8.2.0",
+    "php": "^8.4.0",
 
     "lessname/value-object": "^0.3.0",
 
-    "doctrine/dbal": "^3.1.0",
+    "doctrine/dbal": "^4.0.0",
     "ramsey/uuid": "^4.2.0",
 
     "psr/http-message": "^1.0.0 || ^2.0.0",
@@ -33,11 +26,6 @@
   "autoload-dev": {
     "psr-4": {
       "LessDomainTest\\": "test/"
-    }
-  },
-  "config": {
-    "allow-plugins": {
-      "composer/package-versions-deprecated": true
     }
   }
 }
