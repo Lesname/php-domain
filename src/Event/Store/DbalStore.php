@@ -48,9 +48,9 @@ final class DbalStore implements Store
                 [
                     'target' => $event->getTarget(),
                     'action' => $event->getAction(),
-                    'parameters' => json_encode($event->getParameters(), JSON_THROW_ON_ERROR),
+                    'parameters' => json_encode($event->getParameters(), JSON_THROW_ON_ERROR | JSON_UNESCAPED_SLASHES),
                     'occurred_on' => $event->getOccuredOn(),
-                    'headers' => json_encode($event->getHeaders(), JSON_THROW_ON_ERROR),
+                    'headers' => json_encode($event->getHeaders(), JSON_THROW_ON_ERROR | JSON_UNESCAPED_SLASHES),
                 ],
             )
             ->executeStatement();

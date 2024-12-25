@@ -3,8 +3,9 @@ declare(strict_types=1);
 
 namespace LessDomain\Event\Property;
 
+use RuntimeException;
+use LessValueObject\String\Format\Uri\Https;
 use LessValueObject\Composite\AbstractCompositeValueObject;
-use LessValueObject\Composite\Exception\CannotParseReference;
 use LessValueObject\Composite\ForeignReference;
 use LessValueObject\String\Exception\TooLong;
 use LessValueObject\String\Exception\TooShort;
@@ -12,16 +13,21 @@ use LessValueObject\String\Format\Exception\NotFormat;
 use LessValueObject\String\Format\Ip;
 use LessValueObject\String\UserAgent;
 use Psr\Http\Message\ServerRequestInterface;
+use LessValueObject\String\Format\Exception\UnknownVersion;
 
 /**
  * @psalm-immutable
  */
 final class Headers extends AbstractCompositeValueObject
 {
+    /**
+     * @psalm-pure
+     */
     public function __construct(
         public readonly ?UserAgent $userAgent = null,
         public readonly ?ForeignReference $identity = null,
         public readonly ?Ip $ip = null,
+        public readonly ?Https $origin = null,
     ) {}
 
     /**
@@ -37,6 +43,7 @@ final class Headers extends AbstractCompositeValueObject
             self::fromRequestUserAgent($request),
             self::fromRequestIdentity($request),
             self::fromRequestIP($request),
+            self::fromRequestOrigin($request),
         );
     }
 
@@ -50,10 +57,11 @@ final class Headers extends AbstractCompositeValueObject
      */
     private static function fromRequestUserAgent(ServerRequestInterface $request): ?UserAgent
     {
-        $userAgent = $request->getHeaderLine('user-agent') ?: null;
+        // @phpstan-ignore possiblyImpure.methodCall
+        $userAgent = trim($request->getHeaderLine('user-agent')) ?: null;
 
-        return is_string($userAgent) && mb_strlen($userAgent) >= UserAgent::getMinLength()
-            ? new UserAgent(mb_substr($userAgent, 0, UserAgent::getMaxLength()))
+        return $userAgent && mb_strlen($userAgent) >= UserAgent::getMinimumLength()
+            ? new UserAgent(mb_substr($userAgent, 0, UserAgent::getMaximumLength()))
             : null;
     }
 
@@ -64,8 +72,12 @@ final class Headers extends AbstractCompositeValueObject
      */
     private static function fromRequestIdentity(ServerRequestInterface $request): ?ForeignReference
     {
+        // @phpstan-ignore possiblyImpure.methodCall
         $identity = $request->getAttribute('identity');
-        assert($identity instanceof ForeignReference || is_null($identity));
+
+        if (!$identity instanceof ForeignReference && $identity !== null) {
+            throw new RuntimeException();
+        }
 
         return $identity;
     }
@@ -81,10 +93,30 @@ final class Headers extends AbstractCompositeValueObject
      */
     private static function fromRequestIP(ServerRequestInterface $request): ?Ip
     {
+        // @phpstan-ignore possiblyImpure.methodCall
         $params = $request->getServerParams();
 
         return isset($params['REMOTE_ADDR']) && is_string($params['REMOTE_ADDR'])
             ? new Ip($params['REMOTE_ADDR'])
+            : null;
+    }
+
+    /**
+     * @psalm-pure
+     *
+     * @psalm-suppress ImpureMethodCall getter is pure
+     *
+     * @throws TooLong
+     * @throws TooShort
+     * @throws NotFormat
+     */
+    private static function fromRequestOrigin(ServerRequestInterface $request): ?Https
+    {
+        // @phpstan-ignore possiblyImpure.methodCall
+        $origin = trim($request->getHeaderLine('origin')) ?: null;
+
+        return $origin && Https::isFormat($origin)
+            ? new Https($origin)
             : null;
     }
 
@@ -101,6 +133,8 @@ final class Headers extends AbstractCompositeValueObject
 
     /**
      * @psalm-pure
+     *
+     * @throws UnknownVersion
      */
     public static function forCron(): self
     {
@@ -112,11 +146,26 @@ final class Headers extends AbstractCompositeValueObject
 
     /**
      * @psalm-pure
+     *
+     * @throws UnknownVersion
      */
     public static function forCli(): self
     {
         return new self(
             userAgent: new UserAgent('cli'),
+            ip: Ip::local(),
+        );
+    }
+
+    /**
+     * @psalm-pure
+     *
+     * @throws UnknownVersion
+     */
+    public static function forEffect(): self
+    {
+        return new self(
+            userAgent: new UserAgent('effect'),
             ip: Ip::local(),
         );
     }
