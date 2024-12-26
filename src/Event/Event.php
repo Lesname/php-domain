@@ -23,7 +23,12 @@ interface Event extends CompositeValueObject
      */
     public function getParameters(): array;
 
+    /**
+     * @deprecated use getOccurredOn
+     */
     public function getOccuredOn(): MilliTimestamp;
+
+    public function getOccurredOn(): MilliTimestamp;
 
     public function getHeaders(): Headers;
 }
