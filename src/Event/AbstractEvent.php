@@ -21,6 +21,11 @@ abstract class AbstractEvent implements Event
         return $this->occurredOn;
     }
 
+    public function getOccurredOn(): MilliTimestamp
+    {
+        return $this->occurredOn;
+    }
+
     public function getHeaders(): Headers
     {
         return $this->headers;
