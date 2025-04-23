@@ -1,18 +1,18 @@
 <?php
 declare(strict_types=1);
 
-namespace LessDomainTest\Event\Publisher;
+namespace LesDomainTest\Event\Publisher;
 
-use LessDomain\Event\AbstractAggregateEvent;
-use LessDomain\Event\AbstractEvent;
-use LessDomain\Event\Listener\LazyContainerListener;
-use LessDomain\Event\Publisher\FifoPublisher;
-use LessDomain\Event\Publisher\FifoPublisherFactory;
+use LesDomain\Event\AbstractAggregateEvent;
+use LesDomain\Event\AbstractEvent;
+use LesDomain\Event\Listener\LazyContainerListener;
+use LesDomain\Event\Publisher\FifoPublisher;
+use LesDomain\Event\Publisher\FifoPublisherFactory;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 
 /**
- * @covers \LessDomain\Event\Publisher\FifoPublisherFactory
+ * @covers \LesDomain\Event\Publisher\FifoPublisherFactory
  */
 final class FifoPublisherFactoryTest extends TestCase
 {

@@ -1,10 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace LessDomain\Event\Publisher;
+namespace LesDomain\Event\Publisher;
 
-use LessDomain\Event\Event;
-use LessDomain\Event\Listener\Listener;
+use Override;
+use LesDomain\Event\Event;
+use LesDomain\Event\Listener\Listener;
 
 final class FifoPublisher implements Publisher
 {
@@ -17,11 +18,13 @@ final class FifoPublisher implements Publisher
     /**
      * @return array<class-string<Event>, array<Listener>>
      */
+    #[Override]
     public function getSubscriptions(): array
     {
         return $this->subscriptions;
     }
 
+    #[Override]
     public function publish(Event $event): void
     {
         foreach (($this->subscriptions[$event::class] ?? []) as $listener) {

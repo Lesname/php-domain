@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace LessDomain\Event\Listener;
+namespace LesDomain\Event\Listener;
 
-use LessDomain\Event\Event;
+use LesDomain\Event\Event;
 
 interface Listener
 {

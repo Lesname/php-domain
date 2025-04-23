@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace LessDomain\Event\Helper;
+namespace LesDomain\Event\Helper;
 
-use LessDomain\Event\Property\Action;
+use LesDomain\Event\Property\Action;
 
 /**
  * @psalm-immutable

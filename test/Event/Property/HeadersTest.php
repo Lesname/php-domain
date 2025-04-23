@@ -1,15 +1,15 @@
 <?php
 declare(strict_types=1);
 
-namespace LessDomainTest\Event\Property;
+namespace LesDomainTest\Event\Property;
 
-use LessDomain\Event\Property\Headers;
-use LessValueObject\Composite\ForeignReference;
+use LesDomain\Event\Property\Headers;
+use LesValueObject\Composite\ForeignReference;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
- * @covers \LessDomain\Event\Property\Headers
+ * @covers \LesDomain\Event\Property\Headers
  */
 final class HeadersTest extends TestCase
 {

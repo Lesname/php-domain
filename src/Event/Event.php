@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace LessDomain\Event;
+namespace LesDomain\Event;
 
-use LessDomain\Event\Property\Action;
-use LessDomain\Event\Property\Headers;
-use LessDomain\Event\Property\Target;
-use LessValueObject\Composite\CompositeValueObject;
-use LessValueObject\Number\Int\Date\MilliTimestamp;
+use LesDomain\Event\Property\Action;
+use LesDomain\Event\Property\Headers;
+use LesDomain\Event\Property\Target;
+use LesValueObject\Composite\CompositeValueObject;
+use LesValueObject\Number\Int\Date\MilliTimestamp;
 
 /**
  * @psalm-immutable

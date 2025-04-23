@@ -1,10 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace LessDomain\Event;
+namespace LesDomain\Event;
 
-use LessDomain\Event\Property\Headers;
-use LessValueObject\Number\Int\Date\MilliTimestamp;
+use Override;
+use LesDomain\Event\Property\Headers;
+use LesValueObject\Number\Int\Date\MilliTimestamp;
 
 /**
  * @psalm-immutable
@@ -16,16 +17,19 @@ abstract class AbstractEvent implements Event
         private readonly Headers $headers,
     ) {}
 
+    #[Override]
     public function getOccuredOn(): MilliTimestamp
     {
         return $this->occurredOn;
     }
 
+    #[Override]
     public function getOccurredOn(): MilliTimestamp
     {
         return $this->occurredOn;
     }
 
+    #[Override]
     public function getHeaders(): Headers
     {
         return $this->headers;
@@ -34,6 +38,7 @@ abstract class AbstractEvent implements Event
     /**
      * @return array<string, mixed>
      */
+    #[Override]
     public function getParameters(): array
     {
         $parameters = get_object_vars($this);
@@ -45,6 +50,7 @@ abstract class AbstractEvent implements Event
     /**
      * @return array<string, mixed>
      */
+    #[Override]
     public function jsonSerialize(): array
     {
         return [

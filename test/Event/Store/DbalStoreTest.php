@@ -1,21 +1,21 @@
 <?php
 declare(strict_types=1);
 
-namespace LessDomainTest\Event\Store;
+namespace LesDomainTest\Event\Store;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
-use LessDomain\Event\Event;
-use LessDomain\Event\Property\Action;
-use LessDomain\Event\Property\Headers;
-use LessDomain\Event\Property\Target;
-use LessDomain\Event\Publisher\Publisher;
-use LessDomain\Event\Store\DbalStore;
-use LessValueObject\Number\Int\Date\MilliTimestamp;
+use LesDomain\Event\Event;
+use LesDomain\Event\Property\Action;
+use LesDomain\Event\Property\Headers;
+use LesDomain\Event\Property\Target;
+use LesDomain\Event\Publisher\Publisher;
+use LesDomain\Event\Store\DbalStore;
+use LesValueObject\Number\Int\Date\MilliTimestamp;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \LessDomain\Event\Store\DbalStore
+ * @covers \LesDomain\Event\Store\DbalStore
  */
 final class DbalStoreTest extends TestCase
 {

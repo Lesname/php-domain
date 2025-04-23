@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace LessDomain\Event\Publisher;
+namespace LesDomain\Event\Publisher;
 
-use LessDomain\Event\Event;
-use LessDomain\Event\Listener\LazyContainerListener;
-use LessDomain\Event\Listener\Listener;
+use LesDomain\Event\Event;
+use LesDomain\Event\Listener\LazyContainerListener;
+use LesDomain\Event\Listener\Listener;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;

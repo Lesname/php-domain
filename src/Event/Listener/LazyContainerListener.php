@@ -1,9 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace LessDomain\Event\Listener;
+namespace LesDomain\Event\Listener;
 
-use LessDomain\Event\Event;
+use Override;
+use LesDomain\Event\Event;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;
@@ -21,6 +22,7 @@ final class LazyContainerListener implements Listener
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */
+    #[Override]
     public function handle(Event $event): void
     {
         if ($this->proxiedListener === null) {

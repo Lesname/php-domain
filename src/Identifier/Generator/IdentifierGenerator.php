@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace LessDomain\Identifier\Generator;
+namespace LesDomain\Identifier\Generator;
 
-use LessValueObject\String\Format\Resource\Identifier;
+use LesValueObject\String\Format\Resource\Identifier;
 
 interface IdentifierGenerator
 {

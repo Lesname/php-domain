@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace LessDomain\Event\Publisher;
+namespace LesDomain\Event\Publisher;
 
-use LessDomain\Event\Event;
-use LessDomain\Event\Listener\Listener;
+use LesDomain\Event\Event;
+use LesDomain\Event\Listener\Listener;
 
 interface Publisher
 {

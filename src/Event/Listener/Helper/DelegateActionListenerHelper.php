@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace LessDomain\Event\Listener\Helper;
+namespace LesDomain\Event\Listener\Helper;
 
-use LessDomain\Event\Event;
+use LesDomain\Event\Event;
 
 /**
  * @phpstan-ignore trait.unused

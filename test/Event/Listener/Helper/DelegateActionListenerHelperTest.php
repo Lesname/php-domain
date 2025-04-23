@@ -1,15 +1,15 @@
 <?php
 declare(strict_types=1);
 
-namespace LessDomainTest\Event\Listener\Helper;
+namespace LesDomainTest\Event\Listener\Helper;
 
-use LessDomain\Event\Event;
-use LessDomain\Event\Listener\Helper\DelegateActionListenerHelper;
-use LessDomain\Event\Property\Action;
+use LesDomain\Event\Event;
+use LesDomain\Event\Listener\Helper\DelegateActionListenerHelper;
+use LesDomain\Event\Property\Action;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \LessDomain\Event\Listener\Helper\DelegateActionListenerHelper
+ * @covers \LesDomain\Event\Listener\Helper\DelegateActionListenerHelper
  */
 final class DelegateActionListenerHelperTest extends TestCase
 {

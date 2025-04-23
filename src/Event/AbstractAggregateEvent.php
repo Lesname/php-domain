@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace LessDomain\Event;
+namespace LesDomain\Event;
 
-use LessDomain\Event\Property\Headers;
-use LessValueObject\Number\Int\Date\MilliTimestamp;
-use LessValueObject\String\Format\Resource\Identifier;
+use LesDomain\Event\Property\Headers;
+use LesValueObject\Number\Int\Date\MilliTimestamp;
+use LesValueObject\String\Format\Resource\Identifier;
 
 /**
  * @psalm-immutable

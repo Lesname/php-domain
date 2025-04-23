@@ -1,12 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace LessDomain\Identifier\Generator;
+namespace LesDomain\Identifier\Generator;
 
-use LessValueObject\String\Exception\TooLong;
-use LessValueObject\String\Exception\TooShort;
-use LessValueObject\String\Format\Exception\NotFormat;
-use LessValueObject\String\Format\Resource\Identifier;
+use Override;
+use LesValueObject\String\Exception\TooLong;
+use LesValueObject\String\Exception\TooShort;
+use LesValueObject\String\Format\Exception\NotFormat;
+use LesValueObject\String\Format\Resource\Identifier;
 use Ramsey\Uuid\Uuid;
 
 final class Uuid6IdentifierGenerator implements IdentifierGenerator
@@ -16,6 +17,7 @@ final class Uuid6IdentifierGenerator implements IdentifierGenerator
      * @throws TooShort
      * @throws NotFormat
      */
+    #[Override]
     public function generate(): Identifier
     {
         return new Identifier((string)Uuid::uuid6());
