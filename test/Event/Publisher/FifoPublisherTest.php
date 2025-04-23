@@ -1,17 +1,17 @@
 <?php
 declare(strict_types=1);
 
-namespace LessDomainTest\Event\Publisher;
+namespace LesDomainTest\Event\Publisher;
 
 use ArrayIterator;
-use LessDomain\Event\AbstractEvent;
-use LessDomain\Event\Event;
-use LessDomain\Event\Listener\Listener;
-use LessDomain\Event\Publisher\FifoPublisher;
+use LesDomain\Event\AbstractEvent;
+use LesDomain\Event\Event;
+use LesDomain\Event\Listener\Listener;
+use LesDomain\Event\Publisher\FifoPublisher;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \LessDomain\Event\Publisher\FifoPublisher
+ * @covers \LesDomain\Event\Publisher\FifoPublisher
  */
 final class FifoPublisherTest extends TestCase
 {

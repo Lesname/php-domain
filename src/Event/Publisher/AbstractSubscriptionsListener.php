@@ -8,14 +8,14 @@ use LesDomain\Event\Event;
 use LesDomain\Event\Listener\Listener;
 
 /**
- * @deprecated use FiberPublisher instead, no guarantees on the order of the listeners
+ * @psalm-immutable
  */
-final class FifoPublisher implements Publisher
+abstract class AbstractSubscriptionsListener implements Publisher
 {
     /**
      * @param array<class-string<Event>, array<Listener>> $subscriptions
      */
-    public function __construct(private readonly array $subscriptions)
+    final public function __construct(private readonly array $subscriptions)
     {}
 
     /**
@@ -27,11 +27,11 @@ final class FifoPublisher implements Publisher
         return $this->subscriptions;
     }
 
-    #[Override]
-    public function publish(Event $event): void
+    /**
+     * @return iterable<Listener>
+     */
+    protected function getListenersForEvent(Event $event): iterable
     {
-        foreach (($this->subscriptions[$event::class] ?? []) as $listener) {
-            $listener->handle($event);
-        }
+        return $this->subscriptions[$event::class] ?? [];
     }
 }

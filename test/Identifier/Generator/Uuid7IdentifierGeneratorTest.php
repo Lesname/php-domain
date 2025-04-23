@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace LessDomainTest\Identifier\Generator;
+namespace LesDomainTest\Identifier\Generator;
 
-use LessDomain\Identifier\Generator\Uuid7IdentifierGenerator;
+use LesDomain\Identifier\Generator\Uuid7IdentifierGenerator;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \LessDomain\Identifier\Generator\Uuid7IdentifierGenerator
+ * @covers \LesDomain\Identifier\Generator\Uuid7IdentifierGenerator
  */
 class Uuid7IdentifierGeneratorTest extends TestCase
 {

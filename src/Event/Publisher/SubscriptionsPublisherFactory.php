@@ -10,20 +10,19 @@ use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;
 
-/**
- * @deprecated
- */
-final class FifoPublisherFactory
+final class SubscriptionsPublisherFactory
 {
     public const CONFIG_KEY = 'eventSubscriptions';
 
     /**
+     * @param class-string<AbstractSubscriptionsListener> $name
+     *
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      *
      * @psalm-suppress MixedAssignment from foreach
      */
-    public function __invoke(ContainerInterface $container): FifoPublisher
+    public function __invoke(ContainerInterface $container, string $name): Publisher
     {
         $config = $container->get('config');
         assert(is_array($config));
@@ -44,6 +43,6 @@ final class FifoPublisherFactory
             }
         }
 
-        return new FifoPublisher($subscriptions);
+        return new $name($subscriptions);
     }
 }

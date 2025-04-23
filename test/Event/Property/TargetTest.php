@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace LessDomainTest\Event\Property;
+namespace LesDomainTest\Event\Property;
 
-use LessDomain\Event\Property\Target;
+use LesDomain\Event\Property\Target;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \LessDomain\Event\Property\Target
+ * @covers \LesDomain\Event\Property\Target
  */
 final class TargetTest extends TestCase
 {

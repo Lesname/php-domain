@@ -1,16 +1,16 @@
 <?php
 declare(strict_types=1);
 
-namespace LessDomainTest\Event\Listener;
+namespace LesDomainTest\Event\Listener;
 
-use LessDomain\Event\Event;
-use LessDomain\Event\Listener\LazyContainerListener;
-use LessDomain\Event\Listener\Listener;
+use LesDomain\Event\Event;
+use LesDomain\Event\Listener\LazyContainerListener;
+use LesDomain\Event\Listener\Listener;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 
 /**
- * @covers \LessDomain\Event\Listener\LazyContainerListener
+ * @covers \LesDomain\Event\Listener\LazyContainerListener
  */
 final class LazyContainerListenerTest extends TestCase
 {

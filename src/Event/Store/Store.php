@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace LessDomain\Event\Store;
+namespace LesDomain\Event\Store;
 
-use LessDomain\Event\Event;
+use LesDomain\Event\Event;
 
 interface Store
 {

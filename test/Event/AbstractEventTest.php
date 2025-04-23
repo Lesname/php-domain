@@ -1,36 +1,21 @@
 <?php
 declare(strict_types=1);
 
-namespace LessDomainTest\Event;
+namespace LesDomainTest\Event;
 
-use LessDomain\Event\AbstractEvent;
-use LessDomain\Event\Property\Action;
-use LessDomain\Event\Property\Headers;
-use LessDomain\Event\Property\Target;
-use LessValueObject\Number\Int\Date\MilliTimestamp;
-use LessValueObject\String\Format\Resource\Identifier;
+use LesDomain\Event\AbstractEvent;
+use LesDomain\Event\Property\Action;
+use LesDomain\Event\Property\Headers;
+use LesDomain\Event\Property\Target;
+use LesValueObject\Number\Int\Date\MilliTimestamp;
+use LesValueObject\String\Format\Resource\Identifier;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \LessDomain\Event\AbstractEvent
+ * @covers \LesDomain\Event\AbstractEvent
  */
 final class AbstractEventTest extends TestCase
 {
-    public function testGetters(): void
-    {
-        $id = new Identifier('33793b65-ce94-4c9f-80f5-bd26ecc78d25');
-        $on = MilliTimestamp::now();
-        $headers = new Headers();
-
-        $e = $this->getMockForAbstractClass(
-            AbstractEvent::class,
-            [$on, $headers],
-        );
-
-        self::assertSame($on, $e->getOccuredOn());
-        self::assertSame($headers, $e->getHeaders());
-    }
-
     public function testParameters(): void
     {
         $id = new Identifier('33793b65-ce94-4c9f-80f5-bd26ecc78d25');
@@ -38,8 +23,13 @@ final class AbstractEventTest extends TestCase
         $headers = new Headers();
 
         $e = new class ($id, $on, $headers) extends AbstractEvent {
-            public function __construct(public Identifier $id, MilliTimestamp $occurredOn, Headers $headers)
-            {
+            public function __construct(
+                public Identifier $id,
+                MilliTimestamp $occurredOn,
+                Headers $headers,
+                public Target $target = new Target('fiz'),
+                public Action $action = new Action('bar'),
+            ) {
                 parent::__construct($occurredOn, $headers);
             }
 
@@ -67,8 +57,13 @@ final class AbstractEventTest extends TestCase
         $headers = new Headers();
 
         $e = new class ($id, $on, $headers) extends AbstractEvent {
-            public function __construct(public Identifier $id, MilliTimestamp $occurredOn, Headers $headers)
-            {
+            public function __construct(
+                public Identifier $id,
+                MilliTimestamp $occurredOn,
+                Headers $headers,
+                public Target $target = new Target('fiz'),
+                public Action $action = new Action('bar'),
+            ) {
                 parent::__construct($occurredOn, $headers);
             }
 

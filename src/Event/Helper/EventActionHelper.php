@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace LessDomain\Event\Helper;
+namespace LesDomain\Event\Helper;
 
-use LessDomain\Event\Property\Action;
+use LesDomain\Event\Property\Action;
 
 /**
  * @psalm-immutable
@@ -12,6 +12,14 @@ use LessDomain\Event\Property\Action;
  */
 trait EventActionHelper
 {
+    // phpcs:ignore
+    public Action $action {
+        get {
+            // phpcs:ignore
+            return $this->getAction();
+        }
+    }
+
     /**
      * @psalm-pure
      */

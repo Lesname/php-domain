@@ -1,19 +1,19 @@
 <?php
 declare(strict_types=1);
 
-namespace LessDomain\Event\Property;
+namespace LesDomain\Event\Property;
 
 use RuntimeException;
-use LessValueObject\String\Format\Uri\Https;
-use LessValueObject\Composite\AbstractCompositeValueObject;
-use LessValueObject\Composite\ForeignReference;
-use LessValueObject\String\Exception\TooLong;
-use LessValueObject\String\Exception\TooShort;
-use LessValueObject\String\Format\Exception\NotFormat;
-use LessValueObject\String\Format\Ip;
-use LessValueObject\String\UserAgent;
+use LesValueObject\String\Format\Uri\Https;
+use LesValueObject\Composite\AbstractCompositeValueObject;
+use LesValueObject\Composite\ForeignReference;
+use LesValueObject\String\Exception\TooLong;
+use LesValueObject\String\Exception\TooShort;
+use LesValueObject\String\Format\Exception\NotFormat;
+use LesValueObject\String\Format\Ip;
+use LesValueObject\String\UserAgent;
 use Psr\Http\Message\ServerRequestInterface;
-use LessValueObject\String\Format\Exception\UnknownVersion;
+use LesValueObject\String\Format\Exception\UnknownVersion;
 
 /**
  * @psalm-immutable

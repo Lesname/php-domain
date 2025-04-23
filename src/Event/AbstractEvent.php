@@ -1,10 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace LessDomain\Event;
+namespace LesDomain\Event;
 
-use LessDomain\Event\Property\Headers;
-use LessValueObject\Number\Int\Date\MilliTimestamp;
+use Override;
+use LesDomain\Event\Property\Headers;
+use LesValueObject\Number\Int\Date\MilliTimestamp;
 
 /**
  * @psalm-immutable
@@ -12,20 +13,17 @@ use LessValueObject\Number\Int\Date\MilliTimestamp;
 abstract class AbstractEvent implements Event
 {
     public function __construct(
-        private readonly MilliTimestamp $occurredOn,
-        private readonly Headers $headers,
+        public readonly MilliTimestamp $occurredOn,
+        public readonly Headers $headers,
     ) {}
 
-    public function getOccuredOn(): MilliTimestamp
-    {
-        return $this->occurredOn;
-    }
-
+    #[Override]
     public function getOccurredOn(): MilliTimestamp
     {
         return $this->occurredOn;
     }
 
+    #[Override]
     public function getHeaders(): Headers
     {
         return $this->headers;
@@ -34,10 +32,16 @@ abstract class AbstractEvent implements Event
     /**
      * @return array<string, mixed>
      */
+    #[Override]
     public function getParameters(): array
     {
         $parameters = get_object_vars($this);
-        unset($parameters['occurredOn'], $parameters['headers']);
+        unset(
+            $parameters['occurredOn'],
+            $parameters['headers'],
+            $parameters['action'],
+            $parameters['target'],
+        );
 
         return $parameters;
     }
@@ -45,14 +49,15 @@ abstract class AbstractEvent implements Event
     /**
      * @return array<string, mixed>
      */
+    #[Override]
     public function jsonSerialize(): array
     {
         return [
-            'target' => $this->getTarget(),
-            'action' => $this->getAction(),
+            'target' => $this->target,
+            'action' => $this->action,
             'parameters' => $this->getParameters(),
-            'occurredOn' => $this->getOccuredOn(),
-            'headers' => $this->getHeaders(),
+            'occurredOn' => $this->occurredOn,
+            'headers' => $this->headers,
         ];
     }
 }

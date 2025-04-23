@@ -1,13 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace LessDomain\Event\Store;
+namespace LesDomain\Event\Store;
 
+use Override;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception;
 use JsonException;
-use LessDomain\Event\Event;
-use LessDomain\Event\Publisher\Publisher;
+use LesDomain\Event\Event;
+use LesDomain\Event\Publisher\Publisher;
 
 final class DbalStore implements Store
 {
@@ -20,6 +21,7 @@ final class DbalStore implements Store
      * @throws Exception
      * @throws JsonException
      */
+    #[Override]
     public function persist(Event $event): void
     {
         $this->insert($event);
@@ -46,11 +48,11 @@ final class DbalStore implements Store
             )
             ->setParameters(
                 [
-                    'target' => $event->getTarget(),
-                    'action' => $event->getAction(),
+                    'target' => $event->target,
+                    'action' => $event->action,
                     'parameters' => json_encode($event->getParameters(), JSON_THROW_ON_ERROR | JSON_UNESCAPED_SLASHES),
-                    'occurred_on' => $event->getOccuredOn(),
-                    'headers' => json_encode($event->getHeaders(), JSON_THROW_ON_ERROR | JSON_UNESCAPED_SLASHES),
+                    'occurred_on' => $event->occurredOn,
+                    'headers' => json_encode($event->headers, JSON_THROW_ON_ERROR | JSON_UNESCAPED_SLASHES),
                 ],
             )
             ->executeStatement();
