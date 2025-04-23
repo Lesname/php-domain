@@ -14,8 +14,24 @@ use LesValueObject\Number\Int\Date\MilliTimestamp;
  */
 interface Event extends CompositeValueObject
 {
+    // phpcs:ignore
+    public Target $target { get; }
+    // phpcs:ignore
+    public Action $action { get; }
+
+    // phpcs:ignore
+    public MilliTimestamp $occurredOn { get; }
+    // phpcs:ignore
+    public Headers $headers { get; }
+
+    /**
+     * @deprecated
+     */
     public function getTarget(): Target;
 
+    /**
+     * @deprecated
+     */
     public function getAction(): Action;
 
     /**
@@ -24,11 +40,12 @@ interface Event extends CompositeValueObject
     public function getParameters(): array;
 
     /**
-     * @deprecated use getOccurredOn
+     * @deprecated
      */
-    public function getOccuredOn(): MilliTimestamp;
-
     public function getOccurredOn(): MilliTimestamp;
 
+    /**
+     * @deprecated
+     */
     public function getHeaders(): Headers;
 }

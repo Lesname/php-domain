@@ -13,15 +13,9 @@ use LesValueObject\Number\Int\Date\MilliTimestamp;
 abstract class AbstractEvent implements Event
 {
     public function __construct(
-        private readonly MilliTimestamp $occurredOn,
-        private readonly Headers $headers,
+        public readonly MilliTimestamp $occurredOn,
+        public readonly Headers $headers,
     ) {}
-
-    #[Override]
-    public function getOccuredOn(): MilliTimestamp
-    {
-        return $this->occurredOn;
-    }
 
     #[Override]
     public function getOccurredOn(): MilliTimestamp
@@ -42,7 +36,12 @@ abstract class AbstractEvent implements Event
     public function getParameters(): array
     {
         $parameters = get_object_vars($this);
-        unset($parameters['occurredOn'], $parameters['headers']);
+        unset(
+            $parameters['occurredOn'],
+            $parameters['headers'],
+            $parameters['action'],
+            $parameters['target'],
+        );
 
         return $parameters;
     }
@@ -54,11 +53,11 @@ abstract class AbstractEvent implements Event
     public function jsonSerialize(): array
     {
         return [
-            'target' => $this->getTarget(),
-            'action' => $this->getAction(),
+            'target' => $this->target,
+            'action' => $this->action,
             'parameters' => $this->getParameters(),
-            'occurredOn' => $this->getOccuredOn(),
-            'headers' => $this->getHeaders(),
+            'occurredOn' => $this->occurredOn,
+            'headers' => $this->headers,
         ];
     }
 }

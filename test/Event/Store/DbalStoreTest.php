@@ -4,8 +4,8 @@ declare(strict_types=1);
 namespace LesDomainTest\Event\Store;
 
 use Doctrine\DBAL\Connection;
+use LesDomain\Event\AbstractEvent;
 use Doctrine\DBAL\Query\QueryBuilder;
-use LesDomain\Event\Event;
 use LesDomain\Event\Property\Action;
 use LesDomain\Event\Property\Headers;
 use LesDomain\Event\Property\Target;
@@ -27,12 +27,38 @@ final class DbalStoreTest extends TestCase
         $on = MilliTimestamp::now();
         $headers = new Headers();
 
-        $event = $this->createMock(Event::class);
-        $event->method('getTarget')->willReturn($target);
-        $event->method('getAction')->willReturn($action);
-        $event->method('getParameters')->willReturn($parameters);
-        $event->method('getOccuredOn')->willReturn($on);
-        $event->method('getheaders')->willReturn($headers);
+        $event = new class ($on, $headers) extends AbstractEvent
+        {
+            // phpcs:ignore
+            public Action $action {
+                get {
+                    // phpcs:ignore
+                    return $this->getAction();
+                }
+            }
+            // phpcs:ignore
+            public Target $target {
+                get {
+                    // phpcs:ignore
+                    return $this->getTarget();
+                }
+            }
+
+            public function getTarget(): Target
+            {
+                return new Target('fiz');
+            }
+
+            public function getAction(): Action
+            {
+                return new Action('bar');
+            }
+
+            public function getParameters(): array
+            {
+                return ['foo' => 'biz'];
+            }
+        };
 
         $builder = $this->createMock(QueryBuilder::class);
         $builder

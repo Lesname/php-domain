@@ -23,8 +23,13 @@ final class AbstractEventTest extends TestCase
         $headers = new Headers();
 
         $e = new class ($id, $on, $headers) extends AbstractEvent {
-            public function __construct(public Identifier $id, MilliTimestamp $occurredOn, Headers $headers)
-            {
+            public function __construct(
+                public Identifier $id,
+                MilliTimestamp $occurredOn,
+                Headers $headers,
+                public Target $target = new Target('fiz'),
+                public Action $action = new Action('bar'),
+            ) {
                 parent::__construct($occurredOn, $headers);
             }
 
@@ -52,8 +57,13 @@ final class AbstractEventTest extends TestCase
         $headers = new Headers();
 
         $e = new class ($id, $on, $headers) extends AbstractEvent {
-            public function __construct(public Identifier $id, MilliTimestamp $occurredOn, Headers $headers)
-            {
+            public function __construct(
+                public Identifier $id,
+                MilliTimestamp $occurredOn,
+                Headers $headers,
+                public Target $target = new Target('fiz'),
+                public Action $action = new Action('bar'),
+            ) {
                 parent::__construct($occurredOn, $headers);
             }
 

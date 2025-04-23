@@ -48,11 +48,11 @@ final class DbalStore implements Store
             )
             ->setParameters(
                 [
-                    'target' => $event->getTarget(),
-                    'action' => $event->getAction(),
+                    'target' => $event->target,
+                    'action' => $event->action,
                     'parameters' => json_encode($event->getParameters(), JSON_THROW_ON_ERROR | JSON_UNESCAPED_SLASHES),
-                    'occurred_on' => $event->getOccuredOn(),
-                    'headers' => json_encode($event->getHeaders(), JSON_THROW_ON_ERROR | JSON_UNESCAPED_SLASHES),
+                    'occurred_on' => $event->occurredOn,
+                    'headers' => json_encode($event->headers, JSON_THROW_ON_ERROR | JSON_UNESCAPED_SLASHES),
                 ],
             )
             ->executeStatement();

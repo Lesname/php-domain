@@ -12,6 +12,14 @@ use LesDomain\Event\Property\Action;
  */
 trait EventActionHelper
 {
+    // phpcs:ignore
+    public Action $action {
+        get {
+            // phpcs:ignore
+            return $this->getAction();
+        }
+    }
+
     /**
      * @psalm-pure
      */

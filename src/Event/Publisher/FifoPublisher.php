@@ -7,6 +7,9 @@ use Override;
 use LesDomain\Event\Event;
 use LesDomain\Event\Listener\Listener;
 
+/**
+ * @deprecated use FiberPublisher instead, no guarantees on the order of the listeners
+ */
 final class FifoPublisher implements Publisher
 {
     /**
