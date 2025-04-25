@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace LesDomain\Event;
 
 use Override;
+use LesDomain\Event\Property\Action;
+use LesDomain\Event\Property\Target;
 use LesDomain\Event\Property\Headers;
 use LesValueObject\Number\Int\Date\MilliTimestamp;
 
@@ -12,6 +14,21 @@ use LesValueObject\Number\Int\Date\MilliTimestamp;
  */
 abstract class AbstractEvent implements Event
 {
+    // phpcs:ignore
+    public Target $target {
+        get {
+            // phpcs:ignore
+            return $this->getTarget();
+        }
+    }
+    // phpcs:ignore
+    public Action $action {
+        get {
+            // phpcs:ignore
+            return $this->getAction();
+        }
+    }
+
     public function __construct(
         public readonly MilliTimestamp $occurredOn,
         public readonly Headers $headers,
