@@ -18,6 +18,7 @@ abstract class AbstractEvent implements Event
     public Target $target {
         get {
             // phpcs:ignore
+            // @phpstan-ignore method.deprecated
             return $this->getTarget();
         }
     }
@@ -25,6 +26,7 @@ abstract class AbstractEvent implements Event
     public Action $action {
         get {
             // phpcs:ignore
+            // @phpstan-ignore method.deprecated
             return $this->getAction();
         }
     }
