@@ -123,10 +123,10 @@ final class Headers extends AbstractCompositeValueObject
     /**
      * @psalm-pure
      */
-    public static function forWorker(): self
+    public static function forWorker(string $name): self
     {
         return new self(
-            userAgent: new UserAgent('worker'),
+            userAgent: new UserAgent("worker:{$name}"),
             ip: Ip::local(),
         );
     }
@@ -136,10 +136,10 @@ final class Headers extends AbstractCompositeValueObject
      *
      * @throws UnknownVersion
      */
-    public static function forCron(): self
+    public static function forCron(string $name): self
     {
         return new self(
-            userAgent: new UserAgent('cron'),
+            userAgent: new UserAgent("cron:{$name}"),
             ip: Ip::local(),
         );
     }
@@ -149,10 +149,10 @@ final class Headers extends AbstractCompositeValueObject
      *
      * @throws UnknownVersion
      */
-    public static function forCli(): self
+    public static function forCli(string $name): self
     {
         return new self(
-            userAgent: new UserAgent('cli'),
+            userAgent: new UserAgent("cli:{$name}"),
             ip: Ip::local(),
         );
     }
@@ -162,10 +162,10 @@ final class Headers extends AbstractCompositeValueObject
      *
      * @throws UnknownVersion
      */
-    public static function forEffect(): self
+    public static function forEffect(string $name): self
     {
         return new self(
-            userAgent: new UserAgent('effect'),
+            userAgent: new UserAgent("effect:{$name}"),
             ip: Ip::local(),
         );
     }
