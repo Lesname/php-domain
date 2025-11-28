@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace LesDomainTest\Event\Property;
@@ -47,27 +48,27 @@ final class HeadersTest extends TestCase
 
     public function testForWorker(): void
     {
-        $headers = Headers::forWorker();
+        $headers = Headers::forWorker('workie');
 
-        self::assertSame('worker', (string)$headers->userAgent);
+        self::assertSame('worker:workie', (string)$headers->userAgent);
         self::assertNull($headers->identity);
         self::assertSame('::1', (string)$headers->ip);
     }
 
     public function testForCron(): void
     {
-        $headers = Headers::forCron();
+        $headers = Headers::forCron('job');
 
-        self::assertSame('cron', (string)$headers->userAgent);
+        self::assertSame('cron:job', (string)$headers->userAgent);
         self::assertNull($headers->identity);
         self::assertSame('::1', (string)$headers->ip);
     }
 
     public function testForCli(): void
     {
-        $headers = Headers::forCli();
+        $headers = Headers::forCli('exe');
 
-        self::assertSame('cli', (string)$headers->userAgent);
+        self::assertSame('cli:exe', (string)$headers->userAgent);
         self::assertNull($headers->identity);
         self::assertSame('::1', (string)$headers->ip);
     }
