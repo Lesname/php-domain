@@ -24,24 +24,19 @@ final class AbstractEventTest extends TestCase
         $headers = new Headers();
 
         $e = new class ($id, $on, $headers) extends AbstractEvent {
+            public Target $target {
+                get => new Target('fiz');
+            }
+            public Action $action {
+                get => new Action('bar');
+            }
+
             public function __construct(
                 public Identifier $id,
                 MilliTimestamp $occurredOn,
                 Headers $headers,
-                public Target $target = new Target('fiz'),
-                public Action $action = new Action('bar'),
             ) {
                 parent::__construct($occurredOn, $headers);
-            }
-
-            public function getTarget(): Target
-            {
-                return new Target('fiz');
-            }
-
-            public function getAction(): Action
-            {
-                return new Action('bar');
             }
         };
 
@@ -58,12 +53,17 @@ final class AbstractEventTest extends TestCase
         $headers = new Headers();
 
         $e = new class ($id, $on, $headers) extends AbstractEvent {
+            public Target $target {
+                get => new Target('fiz');
+            }
+            public Action $action {
+                get => new Action('bar');
+            }
+
             public function __construct(
                 public Identifier $id,
                 MilliTimestamp $occurredOn,
                 Headers $headers,
-                public Target $target = new Target('fiz'),
-                public Action $action = new Action('bar'),
             ) {
                 parent::__construct($occurredOn, $headers);
             }
