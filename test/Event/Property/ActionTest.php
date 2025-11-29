@@ -18,4 +18,13 @@ final class ActionTest extends TestCase
 
         self::assertSame('fiz', (string)$action);
     }
+
+    public function testFromClassname(): void
+    {
+        $classname = 'Service\\Concept\\Primary\\Sub\\Event\\RealNameEvent';
+
+        $action = Action::fromClassname($classname);
+
+        self::assertSame('realName', $action->value);
+    }
 }

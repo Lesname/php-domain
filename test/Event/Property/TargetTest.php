@@ -18,4 +18,13 @@ final class TargetTest extends TestCase
 
         self::assertSame('fiz.bar', (string)$target);
     }
+
+    public function testFromClassname(): void
+    {
+        $classname = 'Service\\Concept\\Primary\\Sub\\Event\\RealEvent';
+
+        $target = Target::fromClassname($classname);
+
+        self::assertSame('concept.primary.sub', $target->value);
+    }
 }
