@@ -6,6 +6,7 @@ namespace LesDomain\Event\Property;
 
 use RuntimeException;
 use LesValueObject\String\Format\Uri\Https;
+use LesDomain\Event\Property\Header\SpamDetection;
 use LesValueObject\Composite\AbstractCompositeValueObject;
 use LesValueObject\Composite\ForeignReference;
 use LesValueObject\String\Exception\TooLong;
@@ -26,6 +27,7 @@ final class Headers extends AbstractCompositeValueObject
         public readonly ?ForeignReference $identity = null,
         public readonly ?Ip $ip = null,
         public readonly ?Https $origin = null,
+        public readonly ?SpamDetection $spamDetection = null,
     ) {}
 
     /**
@@ -40,6 +42,7 @@ final class Headers extends AbstractCompositeValueObject
             self::fromRequestIdentity($request),
             self::fromRequestIP($request),
             self::fromRequestOrigin($request),
+            self::fromRequestSpamDetection($request),
         );
     }
 
@@ -93,6 +96,22 @@ final class Headers extends AbstractCompositeValueObject
         return $origin && Https::isFormat($origin)
             ? new Https($origin)
             : null;
+    }
+
+    /**
+     * @throws RuntimeException
+     */
+    private static function fromRequestSpamDetection(ServerRequestInterface $request): ?SpamDetection
+    {
+        $spamDetection = $request->getAttribute('spamDetection');
+
+        if ($spamDetection === null) {
+            return null;
+        } elseif (!is_string($spamDetection)) {
+            throw new RuntimeException();
+        }
+
+        return SpamDetection::tryFrom($spamDetection) ?? SpamDetection::Detected;
     }
 
     public static function forWorker(string $name): self
