@@ -29,10 +29,14 @@ final class HeadersTest extends TestCase
 
         $identity = ForeignReference::fromString('fiz/8400dc71-5f2f-4db1-8ec7-f51e8142593c');
         $request
-            ->expects(self::once())
+            ->expects(self::exactly(2))
             ->method('getAttribute')
-            ->with('identity')
-            ->willReturn($identity);
+            ->willReturnMap(
+                [
+                    ['identity', null, $identity],
+                    ['spamDetection', null, null]
+                ]
+            );
 
         $request
             ->expects(self::once())

@@ -3,6 +3,7 @@
   "license": "MIT",
   "require": {
     "php": "^8.4.0",
+    "ext-mbstring": "*",
 
     "lesname/value-object": "^0.6.0",
 

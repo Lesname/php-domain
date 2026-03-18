@@ -22,7 +22,7 @@ interface Event extends CompositeValueObject
     public Headers $headers { get; }
 
     /**
-     * @return array<string, mixed>
+     * @return array<mixed>
      */
     public function getParameters(): array;
 }
