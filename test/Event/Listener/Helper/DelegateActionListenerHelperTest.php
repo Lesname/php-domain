@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace LesDomainTest\Event\Listener\Helper;
 
 use LesDomain\Event\Event;
-use LesDomain\Event\AbstractEvent;
 use LesDomain\Event\Property\Target;
 use LesDomain\Event\Property\Headers;
 use LesValueObject\Number\Int\Date\MilliTimestamp;

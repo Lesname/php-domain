@@ -31,7 +31,7 @@ abstract class AbstractEvent implements Event
     ) {}
 
     /**
-     * @return array<string, mixed>
+     * @return array<mixed>
      */
     #[Override]
     public function getParameters(): array
