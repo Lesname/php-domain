@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files psalm-version="7.0.0-beta19@7e751c06a756fa64dc4c759c09fe4a173afcb433">
+  <file src="src/Event/AbstractAggregateEvent.php">
+    <PropertyNotSetInConstructor>
+      <code><![CDATA[AbstractAggregateEvent]]></code>
+      <code><![CDATA[AbstractAggregateEvent]]></code>
+    </PropertyNotSetInConstructor>
+  </file>
+  <file src="src/Event/AbstractEvent.php">
+    <InvalidAttribute>
+      <code><![CDATA[Override]]></code>
+      <code><![CDATA[Override]]></code>
+      <code><![CDATA[Override]]></code>
+      <code><![CDATA[Override]]></code>
+    </InvalidAttribute>
+    <PropertyNotSetInConstructor>
+      <code><![CDATA[$action]]></code>
+      <code><![CDATA[$target]]></code>
+    </PropertyNotSetInConstructor>
+  </file>
+  <file src="src/Event/Event.php">
+    <MissingAbstractPureAnnotation>
+      <code><![CDATA[getParameters]]></code>
+    </MissingAbstractPureAnnotation>
+  </file>
+  <file src="src/Event/Listener/Listener.php">
+    <MissingAbstractPureAnnotation>
+      <code><![CDATA[handle]]></code>
+    </MissingAbstractPureAnnotation>
+    <MissingInterfaceImmutableAnnotation>
+      <code><![CDATA[Listener]]></code>
+    </MissingInterfaceImmutableAnnotation>
+  </file>
+  <file src="src/Event/Property/Action.php">
+    <MixedArgument>
+      <code><![CDATA[$classname]]></code>
+    </MixedArgument>
+    <MixedAssignment>
+      <code><![CDATA[$classname]]></code>
+    </MixedAssignment>
+  </file>
+  <file src="src/Event/Property/Headers.php">
+    <ImpureMethodCall>
+      <code><![CDATA[$request->getAttribute('identity')]]></code>
+      <code><![CDATA[$request->getAttribute('spamDetection')]]></code>
+      <code><![CDATA[$request->getHeaderLine('origin')]]></code>
+      <code><![CDATA[$request->getHeaderLine('user-agent')]]></code>
+      <code><![CDATA[$request->getServerParams()]]></code>
+    </ImpureMethodCall>
+    <MixedAssignment>
+      <code><![CDATA[$spamDetection]]></code>
+    </MixedAssignment>
+  </file>
+  <file src="src/Event/Publisher/FiberSubscriptionsPublisher.php">
+    <ImmutableDependency>
+      <code><![CDATA[FiberSubscriptionsPublisher]]></code>
+    </ImmutableDependency>
+    <ImpureFunctionCall>
+      <code><![CDATA[publish]]></code>
+    </ImpureFunctionCall>
+  </file>
+  <file src="src/Event/Publisher/Publisher.php">
+    <MissingAbstractPureAnnotation>
+      <code><![CDATA[getSubscriptions]]></code>
+      <code><![CDATA[publish]]></code>
+    </MissingAbstractPureAnnotation>
+  </file>
+  <file src="src/Identifier/Generator/IdentifierGenerator.php">
+    <MissingAbstractPureAnnotation>
+      <code><![CDATA[generate]]></code>
+    </MissingAbstractPureAnnotation>
+    <MissingInterfaceImmutableAnnotation>
+      <code><![CDATA[IdentifierGenerator]]></code>
+    </MissingInterfaceImmutableAnnotation>
+  </file>
+</files>

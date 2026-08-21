@@ -22,6 +22,9 @@ use LesValueObject\String\Format\Exception\UnknownVersion;
  */
 final class Headers extends AbstractCompositeValueObject
 {
+    /**
+     * @psalm-pure
+     */
     public function __construct(
         public readonly ?UserAgent $userAgent = null,
         public readonly ?ForeignReference $identity = null,
@@ -114,6 +117,11 @@ final class Headers extends AbstractCompositeValueObject
         return SpamDetection::tryFrom($spamDetection) ?? SpamDetection::Detected;
     }
 
+    /**
+     * @throws UnknownVersion
+     *
+     * @psalm-pure
+     */
     public static function forWorker(string $name): self
     {
         return new self(
@@ -124,6 +132,8 @@ final class Headers extends AbstractCompositeValueObject
 
     /**
      * @throws UnknownVersion
+     *
+     * @psalm-pure
      */
     public static function forCron(string $name): self
     {
@@ -135,6 +145,8 @@ final class Headers extends AbstractCompositeValueObject
 
     /**
      * @throws UnknownVersion
+     *
+     * @psalm-pure
      */
     public static function forCli(string $name): self
     {
@@ -146,6 +158,8 @@ final class Headers extends AbstractCompositeValueObject
 
     /**
      * @throws UnknownVersion
+     *
+     * @psalm-pure
      */
     public static function forEffect(string $name): self
     {

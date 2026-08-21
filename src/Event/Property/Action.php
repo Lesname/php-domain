@@ -19,11 +19,13 @@ final class Action extends AbstractRegexStringFormatValueObject
      * @throws TooLong
      * @throws TooShort
      * @throws NotFormat
+     *
+     * @psalm-pure
      */
     public static function fromClassname(string $classname): self
     {
         $classParts = explode('\\', $classname);
-        $classname = array_pop($classParts);
+        $classname = array_last($classParts);
 
         if (str_ends_with($classname, 'Event')) {
             $classname = substr($classname, 0, -5);

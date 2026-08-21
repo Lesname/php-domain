@@ -16,17 +16,21 @@ use LesValueObject\Number\Int\Date\MilliTimestamp;
 abstract class AbstractEvent implements Event
 {
     // phpcs:disable
+    #[Override]
     public Target $target {
         get => Target::fromClassname($this::class);
     }
 
+    #[Override]
     public Action $action {
         get => Action::fromClassname($this::class);
     }
     // phpcs:enable
 
     public function __construct(
+        #[Override]
         public readonly MilliTimestamp $occurredOn,
+        #[Override]
         public readonly Headers $headers,
     ) {}
 

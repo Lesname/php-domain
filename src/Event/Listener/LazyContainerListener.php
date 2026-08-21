@@ -14,6 +14,9 @@ final class LazyContainerListener implements Listener
 {
     private ?Listener $proxiedListener = null;
 
+    /**
+     * @psalm-mutation-free
+     */
     public function __construct(
         private readonly ContainerInterface $container,
         private readonly string $name,

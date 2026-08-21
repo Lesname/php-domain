@@ -13,6 +13,9 @@ use LesDomain\Event\Publisher\Publisher;
 
 final class DbalStore implements Store
 {
+    /**
+     * @psalm-mutation-free
+     */
     public function __construct(
         private readonly Connection $connection,
         private readonly Publisher $publisher,
