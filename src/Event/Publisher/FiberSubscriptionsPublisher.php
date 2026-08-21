@@ -16,6 +16,8 @@ final class FiberSubscriptionsPublisher extends AbstractSubscriptionsListener
 {
     /**
      * @throws Throwable
+     *
+     * @psalm-impure
      */
     #[Override]
     public function publish(Event $event): void

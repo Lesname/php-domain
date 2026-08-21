@@ -19,6 +19,8 @@ final class Target extends AbstractRegexStringFormatValueObject
      * @throws TooLong
      * @throws TooShort
      * @throws NotFormat
+     *
+     * @psalm-pure
      */
     public static function fromClassname(string $classname): self
     {
