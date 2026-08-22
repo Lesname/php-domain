@@ -26,13 +26,13 @@ final class Uuid6IdentifierGenerator implements IdentifierGenerator
         // 100-ns intervals since 1582-10-15 00:00:00 UTC
         $unixTimestamp = microtime(true);
 
-        $gregorianOffset = 12219292800;
+        $gregorianOffset = 12_219_292_800;
 
         $seconds = (int) floor($unixTimestamp);
-        $fraction = $unixTimestamp - $seconds;
+        $fraction = fmod($unixTimestamp, 1);
 
         $timestamp = ($seconds + $gregorianOffset) * 10_000_000
-            + (int) floor($fraction * 10_000_000);
+            + (int) floor($fraction * 10_000_000.0);
 
         // 60-bit timestamp:
         // timestamp_high (32 bits)

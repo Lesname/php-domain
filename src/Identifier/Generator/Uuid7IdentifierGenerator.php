@@ -23,7 +23,7 @@ final class Uuid7IdentifierGenerator implements IdentifierGenerator
     public function generate(): Identifier
     {
         // Unix timestamp in milliseconds (48 bits)
-        $timestamp = (int) floor(microtime(true) * 1000);
+        $timestamp = (int) floor(microtime(true) * 1000.0);
 
         // 48-bit timestamp, big-endian
         $uuid = pack(
