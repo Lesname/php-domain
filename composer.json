@@ -8,7 +8,6 @@
     "lesname/value-object": "^0.7.0",
 
     "doctrine/dbal": "^4.0.0",
-    "ramsey/uuid": "^4.2.0",
 
     "psr/http-message": "^2.0.0",
     "psr/container": "^2.0.0"
