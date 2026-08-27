@@ -23,13 +23,15 @@
       <code><![CDATA[getParameters]]></code>
     </MissingAbstractPureAnnotation>
   </file>
+  <file src="src/Event/Listener/AbstractDelegateListener.php">
+    <MissingPureAnnotation>
+      <code><![CDATA[handle]]></code>
+    </MissingPureAnnotation>
+  </file>
   <file src="src/Event/Listener/Listener.php">
     <MissingAbstractPureAnnotation>
       <code><![CDATA[handle]]></code>
     </MissingAbstractPureAnnotation>
-    <MissingInterfaceImmutableAnnotation>
-      <code><![CDATA[Listener]]></code>
-    </MissingInterfaceImmutableAnnotation>
   </file>
   <file src="src/Event/Property/Action.php">
     <MixedArgument>
