@@ -2,17 +2,20 @@
 
 declare(strict_types=1);
 
-namespace LesDomain\Event\Listener\Helper;
+namespace LesDomain\Event\Listener;
 
+use Override;
 use LesDomain\Event\Event;
 
 /**
- * @deprecated use AbstractDelegateListener
- *
- * @phpstan-ignore trait.unused
+ * @psalm-mutable
  */
-trait DelegateActionListenerHelper
+abstract class AbstractDelegateListener implements Listener
 {
+    /**
+     * @psalm-impure
+     */
+    #[Override]
     public function handle(Event $event): void
     {
         $subHandle = 'handle' . ucfirst((string)$event->action);
