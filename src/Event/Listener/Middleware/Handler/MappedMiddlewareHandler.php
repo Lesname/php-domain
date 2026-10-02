@@ -12,6 +12,8 @@ final class MappedMiddlewareHandler implements MiddlewareHandler
 {
     /**
      * @param array<string, callable(Event $event): void> $mapping
+     *
+     * @psalm-pure
      */
     public function __construct(private readonly array $mapping)
     {}

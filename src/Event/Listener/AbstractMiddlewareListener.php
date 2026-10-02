@@ -28,6 +28,8 @@ abstract class AbstractMiddlewareListener implements Listener
 
     /**
      * @return array<MiddlewareHandler>
+     *
+     * @psalm-external-mutation-free
      */
     abstract protected function getHandlers(): array;
 }

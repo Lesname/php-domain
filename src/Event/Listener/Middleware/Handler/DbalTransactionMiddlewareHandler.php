@@ -12,6 +12,9 @@ use Doctrine\DBAL\Connection;
 
 final class DbalTransactionMiddlewareHandler implements MiddlewareHandler
 {
+    /**
+     * @psalm-pure
+     */
     public function __construct(private readonly Connection $db)
     {}
 
