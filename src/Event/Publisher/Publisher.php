@@ -8,16 +8,21 @@ use LesDomain\Event\Event;
 use LesDomain\Event\Listener\Listener;
 
 /**
- * @psalm-immutable
+ * @psalm-mutable
  */
 interface Publisher
 {
+    /**
+     * @psalm-impure
+     */
     public function publish(Event $event): void;
 
     /**
      * @deprecated
      *
      * @return array<class-string<Event>, array<Listener>>
+     *
+     * @psalm-capabilities read-props
      */
     public function getSubscriptions(): array;
 }

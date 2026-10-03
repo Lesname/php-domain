@@ -23,6 +23,8 @@ interface Event extends CompositeValueObject
 
     /**
      * @return array<mixed>
+     *
+     * @psalm-capabilities read-props
      */
     public function getParameters(): array;
 }

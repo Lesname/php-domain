@@ -6,7 +6,13 @@ namespace LesDomain\Identifier\Generator;
 
 use LesValueObject\String\Format\Resource\Identifier;
 
+/**
+ * @psalm-mutable
+ */
 interface IdentifierGenerator
 {
+    /**
+     * @psalm-impure
+     */
     public function generate(): Identifier;
 }

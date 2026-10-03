@@ -15,6 +15,7 @@ abstract class AbstractMiddlewareListener implements Listener
     {
         $handlers = $this->getHandlers();
 
+        /** @psalm-pure */
         $next = static function (): void {};
 
         foreach (array_reverse($handlers) as $handler) {

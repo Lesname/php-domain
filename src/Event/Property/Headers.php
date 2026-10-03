@@ -110,11 +110,13 @@ final class Headers extends AbstractCompositeValueObject
 
         if ($spamDetection === null) {
             return null;
-        } elseif (!is_string($spamDetection)) {
-            throw new RuntimeException();
         }
 
-        return SpamDetection::tryFrom($spamDetection) ?? SpamDetection::Detected;
+        if (is_string($spamDetection)) {
+            return SpamDetection::tryFrom($spamDetection) ?? SpamDetection::Detected;
+        }
+
+        throw new RuntimeException("Unknown spam detection type: " . get_debug_type($spamDetection));
     }
 
     /**

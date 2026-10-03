@@ -9,12 +9,14 @@ use LesDomain\Event\Event;
 use LesDomain\Event\Listener\Listener;
 
 /**
- * @psalm-immutable
+ * @psalm-mutable
  */
 abstract class AbstractSubscriptionsListener implements Publisher
 {
     /**
      * @param array<class-string<Event>, array<Listener>> $subscriptions
+     *
+     * @psalm-pure
      */
     final public function __construct(private readonly array $subscriptions)
     {}
@@ -30,6 +32,8 @@ abstract class AbstractSubscriptionsListener implements Publisher
 
     /**
      * @return iterable<Listener>
+     *
+     * @psalm-capabilities read-props
      */
     protected function getListenersForEvent(Event $event): iterable
     {

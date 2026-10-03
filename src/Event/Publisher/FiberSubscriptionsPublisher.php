@@ -10,7 +10,7 @@ use Throwable;
 use LesDomain\Event\Event;
 
 /**
- * @psalm-immutable
+ * @psalm-mutable
  */
 final class FiberSubscriptionsPublisher extends AbstractSubscriptionsListener
 {
@@ -25,7 +25,7 @@ final class FiberSubscriptionsPublisher extends AbstractSubscriptionsListener
         $fibers = [];
 
         foreach ($this->getListenersForEvent($event) as $listener) {
-            $fibers[] = new Fiber(fn () => $listener->handle($event));
+            $fibers[] = new Fiber(static fn () => $listener->handle($event));
         }
 
         do {

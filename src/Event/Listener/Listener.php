@@ -11,5 +11,8 @@ use LesDomain\Event\Event;
  */
 interface Listener
 {
+    /**
+     * @psalm-impure
+     */
     public function handle(Event $event): void;
 }

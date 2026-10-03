@@ -16,6 +16,8 @@ use LesValueObject\String\Format\AbstractRegexStringFormatValueObject;
 final class Action extends AbstractRegexStringFormatValueObject
 {
     /**
+     * @param class-string $classname
+     *
      * @throws TooLong
      * @throws TooShort
      * @throws NotFormat
@@ -25,7 +27,7 @@ final class Action extends AbstractRegexStringFormatValueObject
     public static function fromClassname(string $classname): self
     {
         $classParts = explode('\\', $classname);
-        $classname = array_last($classParts);
+        $classname = $classParts[count($classParts) - 1];
 
         if (str_ends_with($classname, 'Event')) {
             $classname = substr($classname, 0, -5);
